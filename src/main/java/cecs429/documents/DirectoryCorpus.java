@@ -149,7 +149,12 @@ public class DirectoryCorpus implements DocumentCorpus {
 	 */
 	public static DirectoryCorpus loadTextDirectory(Path absolutePath, String fileExtension) {
 		DirectoryCorpus corpus = new DirectoryCorpus(absolutePath);
-		corpus.registerFileDocumentFactory(fileExtension, TextFileDocument::loadTextFileDocument);
+		if (fileExtension.equals(".txt")){
+			corpus.registerFileDocumentFactory(fileExtension, TextFileDocument::loadTextFileDocument);
+		}
+		else if (fileExtension.equals(".json")){
+			corpus.registerFileDocumentFactory(fileExtension, JSONFileDocument::loadJSONFileDocument);
+		}
 		return corpus;
 	}
 }

@@ -39,4 +39,8 @@ public class JSONFileDocument implements FileDocument{
     public Path getFilePath() {
         return mFilePath;
     }
+
+    public static FileDocument loadJSONFileDocument(Path absolutePath, int documentId) {
+        return new JSONFileDocument(documentId, absolutePath);
+    }
 }
