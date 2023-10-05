@@ -16,12 +16,15 @@ import java.util.Scanner;
 
 public class InvertedIndexer {
     public static void main(String[] args) {
-        // Create a DocumentCorpus to load .txt documents from the project directory.
-        DocumentCorpus corpus = DirectoryCorpus.loadTextDirectory(Paths.get("").toAbsolutePath(), ".txt");
+        long start = System.currentTimeMillis();
+        // Create a DocumentCorpus to load .txt or .json documents from the project directory.
+        DocumentCorpus corpus = DirectoryCorpus.loadTextDirectory(Paths.get("/home/joe/IdeaProjects/SearchEngineJava/nps-sites").toAbsolutePath(), ".json");
         // Index the documents of the corpus.
         Index index = indexCorpus(corpus) ;
 
-
+        long finish = System.currentTimeMillis();
+        System.out.println("Finished processing!");
+        System.out.println("Time took: " + (finish - start)*.001 + " seconds");
         // Takes user input and queries for word. Enter "quit" to stop.
         Scanner obj = new Scanner(System.in);
         while (true) {
