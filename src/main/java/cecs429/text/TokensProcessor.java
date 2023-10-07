@@ -1,12 +1,14 @@
 package cecs429.text;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TokensProcessor implements TokenProcessor{
     // Turns tokens to types
     @Override
-    public String processToken(String token) {
-        HashSet<String> tokenSet = new HashSet<>();
+    public List<String> processToken(String token) {
+        List<String> tokenSet = new ArrayList<>();
+
         // Covers hyphen case
         if (token.contains("-")){
             String [] tokenSplit = token.split("-");
@@ -19,23 +21,25 @@ public class TokensProcessor implements TokenProcessor{
 
         // Removes non-alphanumeric characters at beginning and end, but not middle
         // Removes quotation marks and apostrophes
-        for (String s : tokenSet){
-            if (!Character.isLetterOrDigit(s.charAt(0))){
-                s=s.substring(1,s.length()-1);
+        // Transforms all tokens to lowercase
+        for (int i=0; i<tokenSet.size(); i++){
+            String temp = tokenSet.get(i);
+            if (!Character.isLetterOrDigit(temp.charAt(0))){
+                temp=temp.substring(1,temp.length());
             }
-            if (!Character.isLetterOrDigit(s.charAt(s.length()-1))){
-                s=s.substring(0,s.length()-2);
+            if (!Character.isLetterOrDigit(temp.charAt(temp.length()-1))){
+                temp=temp.substring(0,temp.length()-1);
             }
-            if (s.contains("'")){
-                s=s.replace("'", "");
+            if (temp.contains("'")){
+                temp=temp.replace("'", "");
             }
-            if (s.contains("\"")){
-                s=s.replace("\"", "");
+            if (temp.contains("\"")){
+                temp=temp.replace("\"", "");
             }
+            temp = temp.toLowerCase();
+            tokenSet.set(i, temp);
 
         }
-
-
         return tokenSet;
     }
 
