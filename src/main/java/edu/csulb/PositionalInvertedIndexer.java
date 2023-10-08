@@ -52,12 +52,13 @@ public class PositionalInvertedIndexer {
     }
 
     private static Index indexCorpus(DocumentCorpus corpus) {
-        HashSet<String> vocabulary = new HashSet<>();
         TokensProcessor processor = new TokensProcessor();
 
         PositionalInvertedIndex index = new PositionalInvertedIndex();
-        // First, build the vocabulary hash set.
+        int position = 1;
+
         for (Document d : corpus.getDocuments()) {
+
             System.out.println("Found document " + d.getTitle());
             // TODO:
             // Tokenize the document's content by constructing an EnglishTokenStream around the document's content.
@@ -65,13 +66,15 @@ public class PositionalInvertedIndexer {
             //		and adding them to the HashSet vocabulary.
             EnglishTokenStream tokens = new EnglishTokenStream(d.getContent());
 
-            // Iterates through each token and processes them while adding to the index
-            int position = 1;
+            // Iterates through each token, process them and add to the index while increasing the position of each term
             for (String s : tokens.getTokens()){
                 for (String p: processor.processToken(s)) {
                     index.addTerm(p, d.getId(), position);
+                    position += 1;
                 }
             }
+            // Reset position counter for next document
+            position = 1;
 
         }
         return index;

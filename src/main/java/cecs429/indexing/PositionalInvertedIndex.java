@@ -19,12 +19,16 @@ public class PositionalInvertedIndex implements Index{
             list.add(p);
             positionalIndex.put(term, list);
         }
-
         // Checks the last index of list of postings to see if the document id matches
-        // If the document ids don't match, then that means we aren't adding a duplicate document id to achieve O(1)
+        // If the document ids don't match, then add new posting in index O(1).
         else if (positionalIndex.get(term).get(positionalIndex.get(term).size() - 1).getDocumentId() != documentId){
             Posting p = new Posting(documentId, position);
             positionalIndex.get(term).add(p);
+        }
+
+        // Document id and term match, therefore append current position to posting's position list. O(1)
+        else{
+            positionalIndex.get(term).get(positionalIndex.get(term).size() - 1).getPositionList().add(position);
         }
 
     }

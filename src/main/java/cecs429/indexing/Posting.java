@@ -17,4 +17,9 @@ public class Posting {
 	public int getDocumentId() {
 		return mDocumentId;
 	}
+
+	// Returns position list (Used for appending position at end of posting's list in PositionalInvertedIndex)
+	public List<Integer> getPositionList() {
+		return positionList;
+	}
 }
