@@ -13,10 +13,16 @@ public class TokensProcessor implements TokenProcessor{
         if (token.contains("-")){
             String [] tokenSplit = token.split("-");
             for (String s : tokenSplit){
-                tokenSet.add(s);
+                if (!s.isEmpty()) {
+                    tokenSet.add(s);
+                }
             }
             // Adds combined splitted token, i.e, "Hewlett-Packard-Computing" -> "HewlettPackardComputing"
             tokenSet.add(token.replace("-", ""));
+        }
+
+        else{
+            tokenSet.add(token);
         }
 
         // Removes non-alphanumeric characters at beginning and end, but not middle
