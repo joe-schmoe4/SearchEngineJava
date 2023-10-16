@@ -35,6 +35,12 @@ public class TokensProcessor implements TokenProcessor{
         for (int i=0; i<tokenSet.size(); i++){
             String temp = tokenSet.get(i);
 
+            // Checks for single non-alphanumeric characters to prevent weird crashes.
+            if (temp.length() == 1 && !Character.isLetterOrDigit(temp.charAt(0))){
+                tokenSet.remove(i);
+                break;
+            }
+
             if (!Character.isLetterOrDigit(temp.charAt(0))){
                 temp=temp.substring(1,temp.length());
             }

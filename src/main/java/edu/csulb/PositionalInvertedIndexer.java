@@ -45,9 +45,13 @@ public class PositionalInvertedIndexer {
                 break;
             }
 
+            int foundCount = 0;
             for (Posting p : index.getPostings(query)) {
                 System.out.println(query + " found in " + corpus.getDocument(p.getDocumentId()).getTitle());
+                foundCount += 1;
             }
+            System.out.println(query + " found " + foundCount + " times!");
+
         }
     }
 
@@ -61,8 +65,7 @@ public class PositionalInvertedIndexer {
 
             System.out.println("Found document " + d.getTitle());
             // Tokenize the document's content by constructing an EnglishTokenStream around the document's content.
-            // Iterate through the tokens in the document, processing them using a BasicTokenProcessor,
-            //		and adding them to the HashSet vocabulary.
+            // Iterate through the tokens in the document, processing them using the new tokens processor
             EnglishTokenStream tokens = new EnglishTokenStream(d.getContent());
 
             // Iterates through each token, process them and add to the index while increasing the position of each term
