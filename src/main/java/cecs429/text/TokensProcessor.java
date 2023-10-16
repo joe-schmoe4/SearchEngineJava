@@ -1,5 +1,8 @@
 package cecs429.text;
 
+import org.tartarus.snowball.SnowballProgram;
+import org.tartarus.snowball.SnowballStemmer;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,7 +64,13 @@ public class TokensProcessor implements TokenProcessor{
     }
 
     // Normalizes a type into a term using stemming
-    public String normalizeType(String type){
-        return "";
+    public String normalizeType(String type) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+        Class stemClass = Class.forName("org.tartarus.snowball.ext." + "english" + "Stemmer");
+        SnowballStemmer stemmer = (SnowballStemmer) stemClass.newInstance();
+        stemmer.setCurrent(type);
+        stemmer.stem();
+        String term = stemmer.getCurrent();
+
+        return term;
     }
 }

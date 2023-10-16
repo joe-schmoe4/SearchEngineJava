@@ -14,7 +14,7 @@ import java.util.HashSet;
 import java.util.Scanner;
 
 public class PositionalInvertedIndexer {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         Scanner obj = new Scanner(System.in);
 
         long start = System.currentTimeMillis();
@@ -55,7 +55,7 @@ public class PositionalInvertedIndexer {
         }
     }
 
-    private static Index indexCorpus(DocumentCorpus corpus) {
+    private static Index indexCorpus(DocumentCorpus corpus) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         TokensProcessor processor = new TokensProcessor();
 
         PositionalInvertedIndex index = new PositionalInvertedIndex();
@@ -71,7 +71,7 @@ public class PositionalInvertedIndexer {
             // Iterates through each token, process them and add to the index while increasing the position of each term
             for (String s : tokens.getTokens()){
                 for (String p: processor.processToken(s)) {
-                    index.addTerm(p, d.getId(), position);
+                    index.addTerm(processor.normalizeType(p), d.getId(), position);
                     position += 1;
                 }
             }
