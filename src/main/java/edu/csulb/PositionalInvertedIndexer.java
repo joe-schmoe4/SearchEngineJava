@@ -19,15 +19,15 @@ public class PositionalInvertedIndexer {
 
         long start = System.currentTimeMillis();
         // Create a DocumentCorpus to load .txt or .json documents from the project directory.
-        System.out.print("Input txt or json: ");
+        System.out.print("Input: \"txt\" or \"json\": ");
         String input = obj.nextLine();
 
-        DocumentCorpus corpus = null; 
+        DocumentCorpus corpus = null;
         if (input.equals("txt")){
             corpus = DirectoryCorpus.loadTextDirectory(Paths.get("").toAbsolutePath(), ".txt");
         }
         else if (input.equals("json")){
-            corpus = DirectoryCorpus.loadTextDirectory(Paths.get("/home/joe/IdeaProjects/SearchEngineJava/nps-sites").toAbsolutePath(), ".json");
+            corpus = DirectoryCorpus.loadTextDirectory(Paths.get("/home/joe/IdeaProjects/searchengine/nps-sites").toAbsolutePath(), ".json");
         }
         
         // Index the documents of the corpus.
@@ -60,7 +60,6 @@ public class PositionalInvertedIndexer {
         for (Document d : corpus.getDocuments()) {
 
             System.out.println("Found document " + d.getTitle());
-            // TODO:
             // Tokenize the document's content by constructing an EnglishTokenStream around the document's content.
             // Iterate through the tokens in the document, processing them using a BasicTokenProcessor,
             //		and adding them to the HashSet vocabulary.

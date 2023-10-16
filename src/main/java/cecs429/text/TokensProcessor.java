@@ -8,6 +8,10 @@ public class TokensProcessor implements TokenProcessor{
     @Override
     public List<String> processToken(String token) {
         List<String> tokenSet = new ArrayList<>();
+        // Checks if all characters in token is nonalphanumeric
+        if (token.matches("[^a-zA-Z0-9]+")){
+            return tokenSet;
+        }
 
         // Covers hyphen case
         if (token.contains("-")){
@@ -30,6 +34,7 @@ public class TokensProcessor implements TokenProcessor{
         // Transforms all tokens to lowercase
         for (int i=0; i<tokenSet.size(); i++){
             String temp = tokenSet.get(i);
+
             if (!Character.isLetterOrDigit(temp.charAt(0))){
                 temp=temp.substring(1,temp.length());
             }

@@ -2,6 +2,7 @@ package cecs429.documents;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.io.StringReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -21,10 +22,16 @@ public class JSONFileDocument implements FileDocument{
         return mDocumentId;
     }
 
+
+    // Uses jackson databind to read json file
     @Override
     public Reader getContent() {
         try {
-            return Files.newBufferedReader(mFilePath);
+            JsonNode node = objectMapper.readTree(Files.newBufferedReader(mFilePath));
+            JsonNode key = node.get("body");
+            String jsonBody = key.toString();
+
+            return new StringReader(jsonBody);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
