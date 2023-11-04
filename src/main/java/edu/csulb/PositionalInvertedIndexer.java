@@ -54,7 +54,7 @@ public class PositionalInvertedIndexer {
 
             int foundCount = 0;
             for (Posting p : parsed.getPostings(index)) {
-                System.out.println(query + " found in " + corpus.getDocument(p.getDocumentId()).getTitle());
+                System.out.println(query + " found in Title: " + corpus.getDocument(p.getDocumentId()).getTitle() + ",   Doc id: " +  p.getDocumentId());
                 foundCount += 1;
             }
             System.out.println(query + " found " + foundCount + " times!");

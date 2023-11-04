@@ -39,7 +39,16 @@ public class JSONFileDocument implements FileDocument{
 
     @Override
     public String getTitle() {
-        return mFilePath.getFileName().toString();
+        try {
+            JsonNode node = objectMapper.readTree(Files.newBufferedReader(mFilePath));
+            JsonNode key = node.get("title");
+            String title = key.toString();
+
+            return title;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+//        return mFilePath.getFileName().toString();
     }
 
     @Override
