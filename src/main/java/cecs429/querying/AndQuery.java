@@ -44,9 +44,17 @@ public class AndQuery implements QueryComponent {
 
 				if (list1.get(index1).getDocumentId() > list2.get(index2).getDocumentId()){
 					index2 += 1;
+					// Once either index counter is equal to list size, then intersection is complete
+					if (index1 == list1.size() || index2 == list2.size()){
+						break;
+					}
 				}
 				else if (list1.get(index1).getDocumentId() < list2.get(index2).getDocumentId()){
 					index1 += 1;
+					// Once either index counter is equal to list size, then intersection is complete
+					if (index1 == list1.size() || index2 == list2.size()){
+						break;
+					}
 				}
 				// Both doc ids are equal therefore add it to result list and advance both index counters
 				else{
@@ -61,9 +69,6 @@ public class AndQuery implements QueryComponent {
 				}
 			}
 		}
-
-
-
 
 		return result;
 	}

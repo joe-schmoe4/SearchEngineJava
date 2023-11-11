@@ -20,33 +20,42 @@ public class OrQuery implements QueryComponent {
 	
 	@Override
 	public List<Posting> getPostings(Index index) {
-		List<Posting> result =  new ArrayList<>();
+		List<Posting> result = new ArrayList<>();
 
 		for (int i=0; i<mComponents.size()-1; i++){
 			List<Posting> list1 = index.getPostings(mComponents.get(i).toString());
 			List<Posting> list2 = index.getPostings(mComponents.get(i+1).toString());
 
-
 			int index1 = 0;
 			int index2 = 0;
+
+			// If it gets past the first iteration, that means there are more query components. Clear list1 and result and have it store the previous result of intersection.
+			if (i>0){
+				list1.clear();
+				list1.addAll(result);
+				result.clear();
+			}
 			while (true){
+
 				if (list1.get(index1).getDocumentId() > list2.get(index2).getDocumentId()){
 					index2 += 1;
 				}
 				else if (list1.get(index1).getDocumentId() < list2.get(index2).getDocumentId()){
 					index1 += 1;
 				}
+				// Both doc ids are equal therefore add it to result list and advance both index counters
 				else{
 					result.add(list1.get(index1));
 					index1 += 1;
 					index2 += 1;
+
+					// Once either index counter is equal to list size, then intersection is complete
 					if (index1 == list1.size() || index2 == list2.size()){
 						break;
 					}
 				}
 			}
 		}
-
 
 		return result;
 	}
