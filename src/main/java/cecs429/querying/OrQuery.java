@@ -23,8 +23,8 @@ public class OrQuery implements QueryComponent {
 		List<Posting> result = new ArrayList<>();
 
 		for (int i=0; i<mComponents.size()-1; i++){
-			List<Posting> list1 = index.getPostings(mComponents.get(i).toString());
-			List<Posting> list2 = index.getPostings(mComponents.get(i+1).toString());
+			List<Posting> list1 = mComponents.get(i).getPostings(index);
+			List<Posting> list2 = mComponents.get(i+1).getPostings(index);
 
 			int index1 = 0;
 			int index2 = 0;

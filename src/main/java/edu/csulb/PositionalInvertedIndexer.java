@@ -13,6 +13,7 @@ import cecs429.text.TokensProcessor;
 
 import java.nio.file.Paths;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Scanner;
 
 public class PositionalInvertedIndexer {
@@ -49,6 +50,8 @@ public class PositionalInvertedIndexer {
             if (query.equals("quit")){
                 break;
             }
+
+            query = query.toLowerCase();
 
             QueryComponent parsed = parser.parseQuery(query);
 
