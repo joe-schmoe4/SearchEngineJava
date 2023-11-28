@@ -18,7 +18,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
 
-public class PositionalInvertedIndexer {
+public class DiskPositionalIndexer {
     public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         Scanner obj = new Scanner(System.in);
 
@@ -39,6 +39,14 @@ public class PositionalInvertedIndexer {
 
         // Index the documents of the corpus.
         Index index = indexCorpus(corpus);
+        DiskIndexWriter indexWriter = new DiskIndexWriter();
+        try{
+            indexWriter.writeIndex("/home/joe/IdeaProjects/searchengine/src/main/java/cecs429/postings.bin", index);
+        }
+        catch (IOException error){
+            System.out.println("Error writing file");
+        }
+
 
         long finish = System.currentTimeMillis();
         System.out.println("Finished processing!");
